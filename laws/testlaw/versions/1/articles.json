@@ -1,0 +1,35 @@
+[
+  {
+    "chapter": "第一章总则",
+    "section": null,
+    "article": "一",
+    "article_number": 1,
+    "paragraph": "一",
+    "paragraph_number": 1,
+    "item": null,
+    "item_number": null,
+    "text": "本法用于测试法律数据库系统。"
+  },
+  {
+    "chapter": "第一章总则",
+    "section": null,
+    "article": "二",
+    "article_number": 2,
+    "paragraph": "一",
+    "paragraph_number": 1,
+    "item": null,
+    "item_number": null,
+    "text": "本法共有两个测试条文。"
+  },
+  {
+    "chapter": "第二章管理",
+    "section": null,
+    "article": "三",
+    "article_number": 3,
+    "paragraph": "一",
+    "paragraph_number": 1,
+    "item": null,
+    "item_number": null,
+    "text": "管理机关负责执行本法。"
+  }
+]

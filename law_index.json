@@ -1,0 +1,20 @@
+{
+  "laws": [
+    {
+      "law_id": "cn-constitution",
+      "title": "中华人民共和国宪法",
+      "jurisdiction": "CN",
+      "document_type": "constitution",
+      "current_version": "2018",
+      "status": "active"
+    },
+    {
+      "law_id": "test-law",
+      "title": "测试法",
+      "jurisdiction": "CN",
+      "document_type": "law",
+      "current_version": "1",
+      "status": "active"
+    }
+  ]
+}

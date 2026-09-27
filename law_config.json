@@ -1,0 +1,10 @@
+{
+  "law_id": "test-law",
+  "version": "1",
+  "title": "测试法",
+  "jurisdiction": "CN",
+  "document_type": "law",
+  "status": "active",
+  "input_file": "test_law.txt",
+  "output_file": "laws/test-law/versions/1/articles.json"
+}
