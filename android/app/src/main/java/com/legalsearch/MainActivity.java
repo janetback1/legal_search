@@ -17,13 +17,13 @@ import java.nio.charset.StandardCharsets;
 
 public class MainActivity extends Activity {
 
-    private JSONObject index;
+    private JSONArray articles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        loadIndex();
+        loadLaw();
 
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -47,7 +47,6 @@ public class MainActivity extends Activity {
         result.setTextSize(18);
         result.setTextColor(Color.DKGRAY);
         result.setPadding(0, 32, 0, 16);
-
         result.setTextIsSelectable(true);
 
         searchButton.setOnClickListener(v -> {
@@ -63,44 +62,43 @@ public class MainActivity extends Activity {
             StringBuilder output =
                     new StringBuilder();
 
+            int count = 0;
+
             try {
 
-                JSONArray ids =
-                        index.getJSONArray(keyword);
+                for (int i = 0; i < articles.length(); i++) {
 
+                    JSONObject article =
+                            articles.getJSONObject(i);
 
-                for (int i = 0; i < ids.length(); i++) {
+                    String text =
+                            article.getString("text");
 
-                    int id = ids.getInt(i);
+                    if (text.contains(keyword)) {
 
-                    JSONObject law =
-                            loadArticle(id);
+                        output.append(article.getString("displayNumber"))
+                                .append("\n")
+                                .append(text)
+                                .append("\n\n");
 
-
-                    output.append("第")
-                            .append(law.getInt("article_number"))
-                            .append("条\n")
-                            .append(law.getString("text"))
-                            .append("\n\n");
+                        count++;
+                    }
                 }
 
-
-                if (output.length() == 0) {
+                if (count == 0) {
                     output.append("没有找到相关条文");
                 }
 
-
             } catch (Exception e) {
 
-                output.append("没有找到相关条文");
+                output.append("搜索出错：")
+                        .append(e.getMessage());
 
             }
-
 
             result.setText(output.toString());
 
         });
-
 
         layout.addView(title);
         layout.addView(searchBox);
@@ -108,69 +106,38 @@ public class MainActivity extends Activity {
         layout.addView(result);
 
         setContentView(layout);
-
     }
 
-
-    private void loadIndex() {
+    private void loadLaw() {
 
         try {
 
             InputStream input =
-                    getAssets().open("index.json");
-
+                    getAssets().open("criminal-law.json");
 
             byte[] data =
                     new byte[input.available()];
 
-
             input.read(data);
             input.close();
 
-
             String json =
-                    new String(data,
-                    StandardCharsets.UTF_8);
+                    new String(
+                            data,
+                            StandardCharsets.UTF_8
+                    );
 
-
-            index =
+            JSONObject law =
                     new JSONObject(json);
 
+            articles =
+                    law.getJSONArray("articles");
 
         } catch (Exception e) {
 
-            index =
-                    new JSONObject();
+            articles =
+                    new JSONArray();
 
         }
-
     }
-
-
-    private JSONObject loadArticle(int id)
-            throws Exception {
-
-
-        InputStream input =
-                getAssets()
-                .open("laws/" + id + ".json");
-
-
-        byte[] data =
-                new byte[input.available()];
-
-
-        input.read(data);
-        input.close();
-
-
-        String json =
-                new String(data,
-                StandardCharsets.UTF_8);
-
-
-        return new JSONObject(json);
-
-    }
-
 }
